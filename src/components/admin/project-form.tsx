@@ -25,7 +25,7 @@ import Link from "next/link";
 import { ImageUpload } from "@/components/shared/image-upload";
 
 interface TechStack {
-  id: string;
+  id: number;
   name: string;
 }
 
@@ -53,10 +53,10 @@ export function ProjectForm({ initialData, onSuccess }: ProjectFormProps) {
       thumbnail_url: initialData?.thumbnail_url || "",
       demo_url: initialData?.demo_url || "",
       github_url: initialData?.github_url || "",
-      category: initialData?.category || "",
+      ambient_color: initialData?.ambient_color || "#52525B",
       is_featured: initialData?.is_featured || false,
       display_order: initialData?.display_order || 0,
-      tech_stack_ids: initialData?.tech_stacks?.map((ts: any) => ts.id) || [],
+      tech_stacks: initialData?.tech_stacks?.map((ts: any) => ts.id ?? ts) || [],
     },
   });
 
@@ -85,7 +85,7 @@ export function ProjectForm({ initialData, onSuccess }: ProjectFormProps) {
     setIsLoading(true);
 
     try {
-      const { tech_stack_ids, ...projectData } = data;
+      const { tech_stacks, ...projectData } = data;
 
       let projectId = initialData?.id;
 
@@ -113,8 +113,8 @@ export function ProjectForm({ initialData, onSuccess }: ProjectFormProps) {
       if (projectId) {
         await supabase.from("project_tech_stacks").delete().eq("project_id", projectId);
         
-        if (tech_stack_ids && tech_stack_ids.length > 0) {
-          const junctions = tech_stack_ids.map(ts_id => ({
+        if (tech_stacks && tech_stacks.length > 0) {
+          const junctions = tech_stacks.map(ts_id => ({
             project_id: projectId,
             tech_stack_id: ts_id,
           }));
@@ -136,12 +136,12 @@ export function ProjectForm({ initialData, onSuccess }: ProjectFormProps) {
   }
 
   // Toggle tech stack selection
-  const handleTechStackToggle = (id: string) => {
-    const current = form.getValues("tech_stack_ids") || [];
+  const handleTechStackToggle = (id: number) => {
+    const current = form.getValues("tech_stacks") || [];
     if (current.includes(id)) {
-      form.setValue("tech_stack_ids", current.filter(t => t !== id), { shouldDirty: true });
+      form.setValue("tech_stacks", current.filter(t => t !== id), { shouldDirty: true });
     } else {
-      form.setValue("tech_stack_ids", [...current, id], { shouldDirty: true });
+      form.setValue("tech_stacks", [...current, id], { shouldDirty: true });
     }
   };
 
@@ -172,20 +172,6 @@ export function ProjectForm({ initialData, onSuccess }: ProjectFormProps) {
                     <FormLabel>Slug</FormLabel>
                     <FormControl>
                       <Input placeholder="project-name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="category"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Category</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g. Web App, Mobile App" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -296,7 +282,7 @@ export function ProjectForm({ initialData, onSuccess }: ProjectFormProps) {
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-base mb-4 block">Tech Stacks</label>
               <div className="flex flex-wrap gap-2">
                 {techStacks.map((tech) => {
-                  const isSelected = form.watch("tech_stack_ids")?.includes(tech.id);
+                  const isSelected = form.watch("tech_stacks")?.includes(tech.id);
                   return (
                     <button
                       key={tech.id}

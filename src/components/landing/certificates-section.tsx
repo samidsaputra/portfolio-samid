@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { PillButton } from "@/components/shared/pill-button";
 

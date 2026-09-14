@@ -19,16 +19,16 @@ const staggerContainer = {
     opacity: 1,
     transition: { staggerChildren: 0.1 },
   },
-};
+} as const;
 
 const itemReveal = {
   hidden: { y: 40, opacity: 0 },
   show: {
     y: 0,
     opacity: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15 },
+    transition: { type: "spring" as const, stiffness: 100, damping: 15 },
   },
-};
+} as const;
 
 export function HeroSection({ fullName, tagline, photoUrl, linkedinUrl, githubUrl }: HeroSectionProps) {
   const nameParts = fullName.split(" ");

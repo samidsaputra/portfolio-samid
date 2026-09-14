@@ -1,12 +1,13 @@
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface PillButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  asAnchor?: boolean;
-  href?: string;
-  className?: string;
-}
+type PillButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+    children: React.ReactNode;
+    asAnchor?: boolean;
+    href?: string;
+    className?: string;
+  };
 
 export function PillButton({ children, asAnchor, href, className, ...props }: PillButtonProps) {
   const content = (
@@ -27,7 +28,7 @@ export function PillButton({ children, asAnchor, href, className, ...props }: Pi
 
   if (asAnchor && href) {
     return (
-      <a href={href} className={buttonClasses}>
+      <a href={href} className={buttonClasses} {...props}>
         {content}
       </a>
     );
