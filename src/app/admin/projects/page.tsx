@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 
 export const metadata = {
@@ -20,12 +21,10 @@ export default async function ProjectsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-semibold tracking-tight">Projects</h1>
-        <Button asChild>
-          <Link href="/admin/projects/new">
-            <Plus className="mr-2 h-4 w-4" />
-            Add New Project
-          </Link>
-        </Button>
+        <Link href="/admin/projects/new" className={cn(buttonVariants())}>
+          <Plus className="mr-2 h-4 w-4" />
+          Add New Project
+        </Link>
       </div>
 
       <div className="bg-secondary/50 border border-white/5 rounded-xl overflow-hidden shadow-sm backdrop-blur-sm">
@@ -66,12 +65,10 @@ export default async function ProjectsPage() {
                     <td className="px-6 py-4 text-center">{project.display_order}</td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Button variant="ghost" size="icon" asChild>
-                          <Link href={`/admin/projects/${project.id}/edit`}>
-                            <Pencil className="h-4 w-4" />
-                            <span className="sr-only">Edit</span>
-                          </Link>
-                        </Button>
+                        <Link href={`/admin/projects/${project.id}/edit`} className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}>
+                          <Pencil className="h-4 w-4" />
+                          <span className="sr-only">Edit</span>
+                        </Link>
                         <form action={async () => {
                           "use server"
                           const supabase = await createClient();
