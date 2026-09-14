@@ -198,7 +198,7 @@ export function ExperienceForm({ initialData, onSuccess }: ExperienceFormProps) 
                   <FormItem>
                     <FormLabel>Display Order</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input type="number" {...field} value={Number(field.value)} />
                     </FormControl>
                     <FormDescription>Lower numbers appear first</FormDescription>
                     <FormMessage />

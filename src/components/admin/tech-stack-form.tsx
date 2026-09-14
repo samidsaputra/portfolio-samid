@@ -156,7 +156,7 @@ export function TechStackForm({ initialData, onSuccess }: TechStackFormProps) {
                   <FormItem>
                     <FormLabel>Display Order</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input type="number" {...field} value={Number(field.value)} />
                     </FormControl>
                     <FormDescription>Lower numbers appear first</FormDescription>
                     <FormMessage />

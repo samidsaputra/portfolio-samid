@@ -199,7 +199,7 @@ export function ProjectForm({ initialData, onSuccess }: ProjectFormProps) {
                   <FormItem>
                     <FormLabel>Display Order</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input type="number" {...field} value={Number(field.value)} />
                     </FormControl>
                     <FormDescription>Lower numbers appear first</FormDescription>
                     <FormMessage />

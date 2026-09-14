@@ -156,7 +156,7 @@ export function CertificateForm({ initialData, onSuccess }: CertificateFormProps
                   <FormItem>
                     <FormLabel>Display Order</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input type="number" {...field} value={Number(field.value)} />
                     </FormControl>
                     <FormDescription>Lower numbers appear first</FormDescription>
                     <FormMessage />
