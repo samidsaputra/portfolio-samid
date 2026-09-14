@@ -1,0 +1,201 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ========================================
+   M DIMAS SAPUTRA — NOVA PERSONA DESIGN SYSTEM
+   ======================================== */
+
+@theme inline {
+  /* --- shadcn color mapping --- */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-playfair);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-ring: var(--ring);
+  --radius: var(--radius);
+  
+  /* --- Custom Design Tokens --- */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-border-custom: var(--border-custom);
+  --color-accent-monochrome: var(--accent-monochrome);
+  --color-accent-dark: var(--accent-dark);
+  --color-surface: var(--surface);
+}
+
+/* --- Root Variables (Cinematic Storytelling) --- */
+:root {
+  --background: #0A0A0F; /* Near Black / Charcoal */
+  --foreground: #F5F5F5; /* Off-white */
+  --card: #0A0A0F;
+  --card-foreground: #F5F5F5;
+  --popover: #0A0A0F;
+  --popover-foreground: #F5F5F5;
+  --primary: #F5F5F5;
+  --primary-foreground: #0A0A0F;
+  --secondary: #1C1C21;
+  --secondary-foreground: #F5F5F5;
+  --muted: #1C1C21;
+  --muted-foreground: #A1A1AA;
+  --accent: #1C1C21;
+  --accent-foreground: #F5F5F5;
+  --destructive: #7F1D1D;
+  --border: #1C1C21;
+  --input: #1C1C21;
+  --ring: #F5F5F5;
+  --radius: 0.5rem; /* Less rounded for cinematic feel */
+  
+  /* Custom Tokens */
+  --text-primary: #F5F5F5;
+  --text-secondary: #A1A1AA;
+  --text-tertiary: #71717A;
+  --border-custom: #1C1C21;
+  --accent-monochrome: #F5F5F5;
+  --accent-dark: #0A0A0F;
+  --surface: #121217;
+}
+
+/* --- Dark Mode Variables (For Admin Dashboard) --- */
+.dark {
+  --background: #09090B; /* Zinc 950 */
+  --foreground: #FAFAFA; /* Zinc 50 */
+  --card: #09090B;
+  --card-foreground: #FAFAFA;
+  --popover: #09090B;
+  --popover-foreground: #FAFAFA;
+  --primary: #FAFAFA; /* White Accent */
+  --primary-foreground: #09090B; /* Dark Text */
+  --secondary: #27272A; /* Zinc 800 */
+  --secondary-foreground: #FAFAFA;
+  --muted: #27272A;
+  --muted-foreground: #A1A1AA; /* Zinc 400 */
+  --accent: #27272A;
+  --accent-foreground: #FAFAFA;
+  --destructive: #7F1D1D;
+  --border: #27272A;
+  --input: #27272A;
+  --ring: #FAFAFA;
+  
+  /* Custom Tokens Dark */
+  --text-primary: #FAFAFA;
+  --text-secondary: #A1A1AA;
+  --text-tertiary: #71717A;
+  --border-custom: #27272A;
+  --accent-monochrome: #FAFAFA; /* White */
+  --accent-dark: #09090B;
+  --surface: #18181B; /* Zinc 900 for cards */
+}
+
+/* --- Base Layer --- */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+  }
+
+  /* Typography Scale */
+  h1 {
+    @apply font-heading text-6xl md:text-8xl font-black tracking-tight text-text-primary leading-[1.1];
+  }
+  h2 {
+    @apply font-heading text-4xl md:text-5xl font-bold tracking-tight text-text-primary leading-tight;
+  }
+  h3 {
+    @apply font-heading text-2xl md:text-3xl font-semibold text-text-primary tracking-tight;
+  }
+}
+
+/* --- Component Utilities --- */
+@layer components {
+  /* Nova Persona Rounded Card - Glassmorphism Version */
+  .nova-card {
+    @apply bg-zinc-900/40 backdrop-blur-xl rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-white/5;
+  }
+
+  /* Minimalist Section Divider */
+  .section-divider {
+    @apply w-full h-[1px] bg-border-custom;
+  }
+
+  /* Status Dot */
+  .status-dot {
+    @apply inline-block w-2 h-2 rounded-full bg-accent-monochrome;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  
+  @keyframes scroll-down {
+    0% { transform: translateY(-100%); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0; }
+  }
+  .animate-scroll-down {
+    animation: scroll-down 2s infinite cubic-bezier(0.65, 0, 0.35, 1);
+  }
+}
+
+/* --- Animations --- */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 20s infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob {
+    animation: none;
+  }
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Hide the CSS fallback blobs when Three.js Canvas is active */
+html.has-canvas .css-ambient-fallback {
+  display: none !important;
+}
+
+/* --- Scrollbar Styling --- */
+::-webkit-scrollbar {
+  display: none;
+}
+html, body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+/* Removed forced light mode admin-theme */
